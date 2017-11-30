@@ -1,20 +1,48 @@
-/* main.css */
+@import url('https://fonts.googleapis.com/css?family=Arimo');
+
+body {
+  background: gold;
+}
 
 .container {
-  background: #eee;
+  background: gold;
+  font-family: 'Arimo', sans-serif;
+}
+
+.no-flexbox .container {
   overflow: auto;
 }
 
-.container .col {
-    width: 27%;
-    padding: 30px 3.15% 0;
-    float: left;
+.no-flexbox .container .col {
+  width: 27%;
+  padding: 30px 3.15% 0;
+  float: left;
 }
 
-/* TODO 3 - style the page */
+.flexbox .container {
+  display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -ms-flexbox;  /* TWEENER - IE 10 */
+  display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+}
 
-/* TODO 4 - use media query */
+.flexbox .container .col {
+  flex: 1;
+  padding: 1rem;
+}
 
-/* TODO 5.2 - use flexbox */
+.flexbox .container .col:nth-child(3) {
+  flex: 1.5;
+}
 
-/* TODO 5.4 - use media query with Flexbox*/
+@media screen and (max-width: 48rem) {
+  .flexbox .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-flow: column;
+  }
+
+  .no-flexbox .container .col {
+    width: 95%;
+  }
+}

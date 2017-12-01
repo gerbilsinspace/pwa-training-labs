@@ -18,28 +18,49 @@ limitations under the License.
 var app = (function() {
 
   function getImageName(country) {
-    // TODO 2.1 - create a promise
+    country = country.toLowerCase();
+    const promiseOfImageName = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (country === 'spain' || country === 'chile' || country === 'peru') {
+          resolve(country + '.png');
+        } else {
+          reject(Error('Didn\'t receive a valid country name!'));
+        }
+      }, 1000);
+
+      console.log(promiseOfImageName)
+      return promiseOfImageName
+    });
   }
 
   function isSpain(country) {
-    // TODO - Optional
+    return new Promise((resolve, reject) => {
+      if (country.toLowerCase() === 'spain') {
+        resolve();
+      } else {
+        reject();
+      }
+    });
   }
 
   function flagChain(country) {
-    // TODO 2.2 - use the promise
+    return getImageName(country)
+      .then(fetchFlag)
+      .then(processFlag)
+      .then(appendFlag)
+      .catch(logError);
   }
 
   function spainTest(country) {
-    // TODO - Optional
+    return isSpain()
+      .then(returnTrue)
+      .catch(returnFalse);
   }
 
   function allFlags(promiseList) {
-    // TODO
+    return Promise.all(promiseList)
+      .catch(resturnFalse);
   }
-
-  // TODO 4.1 - Promise.all
-
-  // TODO 4.2 - Promise.race
 
   /* Helper functions */
 
@@ -67,6 +88,7 @@ var app = (function() {
     if (!flagResponse.ok) {
       throw Error('Bad response for flag request!'); // This will implicitly reject
     }
+
     return flagResponse.blob(); // blob() returns a promise
   }
 
@@ -94,5 +116,4 @@ var app = (function() {
     appendFlag: (appendFlag),
     allFlags: (allFlags)
   };
-
 })();
